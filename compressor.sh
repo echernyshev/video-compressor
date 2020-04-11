@@ -5,6 +5,12 @@ if [ ! -d "$fullPath" ]; then
   exit 1
 fi
 echo "Work in directory ${fullPath}"
+count=$(find "$fullPath" -maxdepth 1 -name "*.mp4" | wc -l)
+
+if [ $count -lt 1 ]; then
+  echo "Files with extention .mp4 not found"
+  exit 0
+fi
 
 backup="$fullPath/backup$(date +"%Y%m%d-%H%M%S")"
 if mkdir "$backup"; then
