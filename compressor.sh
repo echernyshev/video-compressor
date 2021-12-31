@@ -1,4 +1,9 @@
 #!/bin/bash
+if ! command -v ffmpeg &> /dev/null
+then
+    echo "ffmpeg util could not be found"
+    exit 1
+fi
 fullPath=$(realpath "$1")
 if [ ! -d "$fullPath" ]; then
   echo "Directory $fullPath is not exists"
@@ -8,7 +13,7 @@ echo "Work in directory ${fullPath}"
 count=$(find "$fullPath" -maxdepth 1 -name "*.mp4" | wc -l)
 
 if [ $count -lt 1 ]; then
-  echo "Files with extention .mp4 not found"
+  echo "Files with extension .mp4 not found"
   exit 0
 fi
 
